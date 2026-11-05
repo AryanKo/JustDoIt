@@ -9,7 +9,7 @@ A production-safe, distraction-free, zero-cost collaborative task management sys
 AeDoit follows a modern full-stack architecture built on Next.js 14 (App Router) and TypeScript:
 - **Frontend / PWA**: React 18 with Apple-inspired minimal design aesthetic, custom CSS design tokens, glassmorphic modals, and Web App Manifest / Service Worker caching for PWA functionality.
 - **Backend API**: Next.js Server Actions & API routes with Zod schema validation, server-side JWT session authorization, and HTTP-only cookies.
-- **Persistence**: SQLite in local development and PostgreSQL in production via Prisma ORM.
+- **Persistence**: PostgreSQL everywhere (local Docker container in development, Supabase / Neon in production) via Prisma ORM.
 - **Real-Time Synchronization**: Server-Sent Events (SSE) stream delivering real-time task mutations (`TASK_CREATED`, `TASK_UPDATED`, `TASK_DELETED`, `TASK_RESTORED`) to all connected clients with a Last-Write-Wins (LWW) conflict policy.
 - **Recoverable Deletion**: Soft deletion state preserves tasks in a recoverable Trash view before permanent purge.
 
@@ -19,7 +19,7 @@ AeDoit follows a modern full-stack architecture built on Next.js 14 (App Router)
 
 - **Framework**: Next.js 14.2 (App Router)
 - **Language**: TypeScript 5.6
-- **Database & ORM**: SQLite / PostgreSQL with Prisma ORM 5.21
+- **Database & ORM**: PostgreSQL with Prisma ORM 5.21
 - **Realtime**: Server-Sent Events (SSE) via `EventEmitter`
 - **Validation**: Zod 3.23
 - **Security**: JOSE (JWT), bcryptjs, HTTP-Only Cookie Sessions, Security Headers (CSP, HSTS, X-Content-Type-Options)
@@ -191,7 +191,7 @@ model UserIdentity {
 
 | Variable | Required | Default / Description |
 |---|---|---|
-| `DATABASE_URL` | Yes | SQLite local path (`file:./dev.db`) or Postgres URL |
+| `DATABASE_URL` | Yes | PostgreSQL URL (local: `postgresql://postgres:postgres@localhost:5432/aedoit`) |
 | `SESSION_SECRET` | Yes | 32+ character key for signing JWT tokens |
 | `MASTER_PASSWORD` | Yes | Shared master passphrase for initial two users |
 
